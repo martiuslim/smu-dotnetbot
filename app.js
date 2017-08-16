@@ -19,7 +19,7 @@ const bot = new builder.UniversalBot(connector);
 const intents = new builder.IntentDialog();
 intents.matches(/^(hi|hello)/i, 'greeting');
 intents.matches(/^(help|options)/i, 'helpDialog');
-intents.onDefault(builder.DialogAction.send("Sorry, I didn't understand what you said! Please enter 'help' to get a list of commands that I understand :)"));
+intents.onDefault('default');
 
 bot.dialog('/', intents);
 
@@ -32,6 +32,11 @@ bot.dialog('helpDialog', (session, args) => {
   session.endDialog("Help dialog activated");
 }).triggerAction({ matches: 'HelpIntent' })
 
+bot.dialog('default', (session, args) => {
+  session.send("You said %s", session.message.text);
+  session.send("Entities: " + JSON.stringify(session.message.entities, null, 2));
+  session.endDialog("Sorry, I didn't understand what you said! Please enter 'help' to get a list of commands that I understand :)");
+});
 
 
 // Welcomes new members to the group
@@ -46,7 +51,7 @@ bot.on('conversationUpdate', (message) => {
 
     bot.send(new builder.Message()
       .address(message.address)
-      .text('Welcome ' + membersAdded));
+      .text('Welcome %s to SMU\'s Microsoft Student Community!', membersAdded));
   }
 
   if (message.membersRemoved && message.membersRemoved.length > 0) {

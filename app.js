@@ -29,12 +29,16 @@ bot.dialog('greeting', (session, args) => {
 });
 
 bot.dialog('helpDialog', (session, args) => {
+  session.send("Whole message: ");
+  session.send(session.message);
   session.endDialog("Help dialog activated");
 }).triggerAction({ matches: 'HelpIntent' })
 
 bot.dialog('default', (session, args) => {
   session.send("You said %s", session.message.text);
-  session.send("Entities: " + JSON.stringify(session.message.entities, null, 2));
+  session.send("Size of entities: " + session.message.entities.length);
+  session.send("Entities: " + session.message.entities);
+  
   session.endDialog("Sorry, I didn't understand what you said! Please enter 'help' to get a list of commands that I understand :)");
 });
 

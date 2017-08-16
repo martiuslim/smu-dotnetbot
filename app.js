@@ -15,32 +15,50 @@ app.listen(process.env.PORT, function() {
 app.post('/api/messages', connector.listen());
 
 const bot = new builder.UniversalBot(connector);
-
-const intents = new builder.IntentDialog();
-intents.matches(/^(hi|hello)/i, 'greeting');
-intents.matches(/^(help|options)/i, 'helpDialog');
-intents.onDefault('default');
-
-bot.dialog('/', intents);
-
-bot.dialog('greeting', (session, args) => {
-  session.send("Hello! I am smumspbot :)");
-  session.endDialog("Type 'help' to see more commands!");
+bot.dialog('/', (session) => {
+  switch(session.message.text) {
+    case "/start": {
+      session.beginDialog('greeting');
+      break;
+    }
+    case "/roll": {
+      session.send("Feature in progress! Stay tuned..");
+      break;
+    }
+    case "/about": {
+      session.beginDialog('about');
+      break;
+    }
+    case "/help": {
+      session.beginDialog('help');
+      break;
+    }
+    default: {
+      session.beginDialog('default');
+    }
+  }
 });
 
-bot.dialog('helpDialog', (session, args) => {
-  session.send("Whole message: ");
-  session.send(session.message);
-  session.endDialog("Help dialog activated");
+bot.dialog('greeting', (session, args) => {
+  session.endDialog("Hello! I am DotNetBot, your friendly neighbourhood chatbot built for the SMU Microsoft Student Community.  \nType '/help' to see what else I can do!");
+});
+
+bot.dialog('about', (session, args) => {
+  session.endDialog("Hi there! I'm DotNetBot, a chatbot built for the SMU Microsoft Student Community (SMU DotNet Society) by our friendly Microsoft Student Partners.  \nI'm still young and learning how to do new things!  \nIf you have any feedback or suggestions to help me improve, please let @martiuslim know and he will make me better! Thank you :)");
+});
+
+bot.dialog('help', (session, args) => {
+  session.endDialog("I'm glad you asked! Here's a list of what I can do, just click on any of them to get started  \n%s  \n%s  \n%s  ", 
+    '/roll', 
+    '/about', 
+    '/help'
+  );
 }).triggerAction({ matches: 'HelpIntent' })
 
 bot.dialog('default', (session, args) => {
-  session.send("You said %s", session.message.text);
-  session.send("Size of entities: " + session.message.entities.length);
-  session.send("Entities: " + session.message.entities);
-  
-  session.endDialog("Sorry, I didn't understand what you said! Please enter 'help' to get a list of commands that I understand :)");
+  session.endDialog("Sorry, I didn't understand what you said. Please enter '/help' to get a list of commands that I understand :)");
 });
+
 
 
 // Welcomes new members to the group

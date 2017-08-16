@@ -1,0 +1,17 @@
+{
+  "name": "mspbot",
+  "version": "1.0.0",
+  "description": "A bot created for SMU DotNet Society by SMU MSPs",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon --debug-brk app.js"
+  },
+  "author": "Martius",
+  "license": "ISC",
+  "dependencies": {
+    "botbuilder": "^3.9.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4"
+  }
+}

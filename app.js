@@ -27,7 +27,7 @@ app.post('/api/messages', connector.listen());
 
 const bot = new builder.UniversalBot(connector);
 bot.dialog('/', (session) => {
-  switch(session.message.text) {
+  switch(session.message.text.toLowerCase()) {
     case 'hi':
     case 'hello':
     case '/start': 
@@ -38,7 +38,7 @@ bot.dialog('/', (session) => {
 
     case '/me':
     case '/me@smumspbot': {
-      session.beginDialog('me');
+      session.message.source === 'telegram' && session.chat.type === 'private' ? session.beginDialog('me') : session.endDialog("Hi! Please use this command in a private chat with me %s", emoji.get('speak_no_evil'));
       break;
     }
 
@@ -99,7 +99,7 @@ bot.dialog('me', [
     }
   },
   (session, results) => {
-    results.response.index == 0 || (results.response.index != 1 && results.response) ? session.beginDialog('profile') : session.endDialog("I'll see you around then!");
+    results.response.index === 0 || (results.response.index !== 1 && results.response) ? session.beginDialog('profile') : session.endDialog("I'll see you around then!");
   }
 ]);
 

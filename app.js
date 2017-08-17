@@ -38,7 +38,7 @@ bot.dialog('/', (session) => {
 
     case '/me':
     case '/me@smumspbot': {
-      session.message.source === 'telegram' ? session.beginDialog('me') : session.endDialog("Hi! Please use this command in a private chat with me %s", emoji.get('speak_no_evil'));
+      (session.message.source === 'telegram' && session.message.sourceEvent.chat.type !== 'private') ? session.endDialog("Hi! Please use this command in a private chat with me %s", emoji.get('speak_no_evil')) :  session.beginDialog('me');
       break;
     }
 
@@ -75,7 +75,7 @@ bot.dialog('/', (session) => {
     }
 
     case '/debug': {
-      session.beginDialog('debug');
+      // session.beginDialog('debug');
       break;
     }
 
@@ -193,19 +193,13 @@ bot.dialog('help', (session, args) => {
 });
 
 bot.dialog('debug', (session, args) => {
+  session.send("=== Debug Started ===")
   let msg = session.message;
-  let privatedata = session.privateConversationData;
-  let convodata = session.conversationData;
-  let dialogdata = session.dialogData;
   let userdata = session.userData;
   let state = session.sessionState;
-  session.send("msg: " + JSON.stringify(msg, null, 2));
-  session.send("privatedata: " + JSON.stringify(privatedata, null, 2));
-  session.send("convodata: " + JSON.stringify(convodata, null, 2));
-  session.send("dialogdata: " + JSON.stringify(dialogdata, null, 2));
-  session.send("userdata: " + JSON.stringify(userdata, null, 2));
-  session.send("state: " + JSON.stringify(state, null, 2));
-  session.endDialog('Debug ended');
+  session.send(JSON.stringify(msg, null, 2));
+  session.send(JSON.stringify(userdata, null, 2));
+  session.endDialog("=== Debug Ended ===");
 });
 
 bot.dialog('default', (session, args) => {

@@ -36,37 +36,37 @@ bot.dialog('/', (session) => {
       break;
     }
 
-    case "/me" :
+    case '/me':
     case '/me@smumspbot': {
       session.beginDialog('me');
       break;
     }
 
-    case "about":
+    case '/about':
     case '/about@smumspbot': {
       session.beginDialog('about');
       break;
     }
 
-    case "/dotnet":
+    case '/dotnet':
     case '/dotnet@smumspbot': {
       session.beginDialog('dotnet');
       break;
     }
 
-    case "/fortunecookie":
+    case '/fortunecookie':
     case '/fortunecookie@smumspbot': {
       session.beginDialog('fortunecookie');
       break;
     }
 
-    case "/games":
+    case '/games':
     case '/games@smumspbot': {
-      session.beginDialog('games');
+      // session.beginDialog('games');
       break;
     }
 
-    case "/help":
+    case '/help':
     case '/help@smumspbot': {
       session.beginDialog('help');
       break;
@@ -123,7 +123,7 @@ bot.dialog('profile', [
   (session, results) => {
     session.userData.yearOfStudy = results.response;
     session.send(
-      "Great! Here's your information:  \nName: %s  \nEmail: %s  \nFaculty: %s  \nYear Of Study: %i", 
+      "Great! Here's your profile:  \nName: %s  \nEmail: %s  \nFaculty: %s  \nYear Of Study: %i", 
       session.userData.name, 
       session.userData.email, 
       session.userData.faculty, 

@@ -28,34 +28,50 @@ app.post('/api/messages', connector.listen());
 const bot = new builder.UniversalBot(connector);
 bot.dialog('/', (session) => {
   switch(session.message.text) {
-    case "/start" || '/start@smumspbot': {
+    case 'hi':
+    case 'hello':
+    case '/start': 
+    case '/start@smumspbot': {
       session.beginDialog('greeting');
       break;
     }
-    case "/me" || '/me@smumspbot': {
+
+    case "/me" :
+    case '/me@smumspbot': {
       session.beginDialog('me');
       break;
     }
-    case "/about" || '/about@smumspbot': {
+
+    case "about":
+    case '/about@smumspbot': {
       session.beginDialog('about');
       break;
     }
-    case "/dotnet" || '/dotnet@smumspbot': {
+
+    case "/dotnet":
+    case '/dotnet@smumspbot': {
       session.beginDialog('dotnet');
       break;
     }
-    case "/fortunecookie" || '/fortunecookie@smumspbot': {
+
+    case "/fortunecookie":
+    case '/fortunecookie@smumspbot': {
       session.beginDialog('fortunecookie');
       break;
     }
-    case "/games" || '/games@smumspbot': {
+
+    case "/games":
+    case '/games@smumspbot': {
       session.beginDialog('games');
       break;
     }
-    case "/help" || '/help@smumspbot': {
+
+    case "/help":
+    case '/help@smumspbot': {
       session.beginDialog('help');
       break;
     }
+
     default: {
       session.beginDialog('default');
     }
@@ -83,7 +99,7 @@ bot.dialog('me', [
     }
   },
   (session, results) => {
-    results.response.index == 1 || results.response ? session.beginDialog('profile') : session.endDialog("I'll see you around then!");
+    results.response.index == 0 || (results.response.index != 1 && results.response) ? session.beginDialog('profile') : session.endDialog("I'll see you around then!");
   }
 ]);
 

@@ -194,7 +194,8 @@ bot.dialog('help', (session, args) => {
 
 bot.dialog('debug', (session, args) => {
   let msg = session.message.chat_id;
-  session.send(msg);
+  session.send("msg: " + msg);
+  session.endDialog('Debug ended');
 });
 
 bot.dialog('default', (session, args) => {

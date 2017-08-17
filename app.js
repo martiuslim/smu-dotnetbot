@@ -38,7 +38,7 @@ bot.dialog('/', (session) => {
 
     case '/me':
     case '/me@smumspbot': {
-      session.message.source === 'telegram' && session.chat.type === 'private' ? session.beginDialog('me') : session.endDialog("Hi! Please use this command in a private chat with me %s", emoji.get('speak_no_evil'));
+      session.message.source === 'telegram' && session.message.entities.chat.type === 'private' ? session.beginDialog('me') : session.endDialog("Hi! Please use this command in a private chat with me %s", emoji.get('speak_no_evil'));
       break;
     }
 
@@ -60,11 +60,13 @@ bot.dialog('/', (session) => {
       break;
     }
 
+    /*
     case '/games':
     case '/games@smumspbot': {
-      // session.beginDialog('games');
+      session.beginDialog('games');
       break;
     }
+    */
 
     case '/help':
     case '/help@smumspbot': {
@@ -79,11 +81,13 @@ bot.dialog('/', (session) => {
 });
 
 bot.dialog('greeting', (session, args) => {
+  session.sendTyping();
   session.endDialog("Hello! I am **DotNetBot** %s, your friendly neighbourhood chatbot built for the **SMU Microsoft Student Community**.  \n\nSend */dotnet* to learn more about what DotNet Society and our Microsoft Student Partners do or */help* to see what else I can do!", emoji.get('robot_face'));
 });
 
 bot.dialog('me', [
   (session, args) => {
+    session.sendTyping();
     if (!session.userData.name) {
       builder.Prompts.choice(session, "Hi there and nice to meet you! I am **DotNetBot** and I want to get to know you better :D  \n", "sure!|not right now.. ):");
     } else {
@@ -134,15 +138,18 @@ bot.dialog('profile', [
 ]);
 
 bot.dialog('about', (session, args) => {
+  session.sendTyping();
   session.endDialog("Hi there! I'm **DotNetBot**, a chatbot built for the **SMU Microsoft Student Community (SMU DotNet Society)** by our friendly *Microsoft Student Partners*. I'm still young and learning how to do new things!  \n\nIf you find any bugs or have any feedback to help me improve, please let @martiuslim know and he will make me better! Thank you %s", emoji.get('smile'));
 });
 
 bot.dialog('dotnet', (session, args) => {
+  session.sendTyping();
   session.send("Hey! We are **DotNet Society** and we are mainly a bunch of technology enthusiasts with a passion for Microsoft Technology %s.  \n\nOur friendly **Microsoft Student Partners** conduct workshops and host events so that we can all learn and grow together!  \n\nIf **learning new technologies** and **building cool stuff** sounds fun to you, or if you want to become a Microsoft Student Partner yourself, please feel free to join us and spread the word!", emoji.get('v'));
   session.endDialog("We'd love you to join us at our **SMU Microsoft Student Community** here: %s", 'https://t.me/joinchat/BTX9YUMEqizbHZeYUhNdPA');
 });
 
 bot.dialog('fortunecookie', (session, args) => {
+  session.sendTyping();
   session.send("Eating your fortune cookie! %s  \nYour fortune is..", emoji.random().emoji);
   session.endDialog(fortunes);
 });
@@ -169,13 +176,14 @@ bot.dialog('games', [
 ]);
 
 bot.dialog('help', (session, args) => {
-  session.endDialog("I'm glad you asked! Here's a list of what I can do, just click on any of them to get started %s  \n%s  \n%s  \n%s  \n%s  \n%s  ", 
+  session.sendTyping();
+  session.endDialog("I'm glad you asked! Here's a list of what I can do, just click on any of them to get started %s  \n%s  \n%s  \n%s  \n%s  ", 
     emoji.get('muscle'),
-    '/me (help me get to know you better!)',
+    '/me (help me get to know you better, but please only use this in a private chat with me!)',
     '/about (learn more about me and how you can help make me better!)',
     '/dotnet (learn more about DotNet Society and our SMU Microsoft Student Community!)',
-    '/fortunecookie (get your fortune.. after I eat your cookie ' + emoji.get('smiling_imp') + ')',
-    '/games (play some simple games with me!)'
+    '/fortunecookie (get your fortune.. after I eat your cookie ' + emoji.get('smiling_imp') + ')'
+    // '/games (play some simple games with me!)'
   );
 });
 

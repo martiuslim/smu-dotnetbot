@@ -193,8 +193,18 @@ bot.dialog('help', (session, args) => {
 });
 
 bot.dialog('debug', (session, args) => {
-  let msg = session.message.chat_id;
-  session.send("msg: " + msg);
+  let msg = session.message;
+  let privatedata = session.privateConversationData;
+  let convodata = session.conversationData;
+  let dialogdata = session.dialogData;
+  let userdata = session.userData;
+  let state = session.sessionState;
+  session.send("msg: " + JSON.stringify(msg, null, 2));
+  session.send("privatedata: " + JSON.stringify(privatedata, null, 2));
+  session.send("convodata: " + JSON.stringify(convodata, null, 2));
+  session.send("dialogdata: " + JSON.stringify(dialogdata, null, 2));
+  session.send("userdata: " + JSON.stringify(userdata, null, 2));
+  session.send("state: " + JSON.stringify(state, null, 2));
   session.endDialog('Debug ended');
 });
 

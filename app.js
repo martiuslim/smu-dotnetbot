@@ -38,7 +38,7 @@ bot.dialog('/', (session) => {
 
     case '/me':
     case '/me@smumspbot': {
-      session.message.source === 'telegram' && session.message.entities.chat.type === 'private' ? session.beginDialog('me') : session.endDialog("Hi! Please use this command in a private chat with me %s", emoji.get('speak_no_evil'));
+      session.message.source === 'telegram' ? session.beginDialog('me') : session.endDialog("Hi! Please use this command in a private chat with me %s", emoji.get('speak_no_evil'));
       break;
     }
 
@@ -72,6 +72,10 @@ bot.dialog('/', (session) => {
     case '/help@smumspbot': {
       session.beginDialog('help');
       break;
+    }
+
+    case '/debug': {
+      session.beginDialog('debug');
     }
 
     default: {
@@ -185,6 +189,11 @@ bot.dialog('help', (session, args) => {
     '/fortunecookie (get your fortune.. after I eat your cookie ' + emoji.get('smiling_imp') + ')'
     // '/games (play some simple games with me!)'
   );
+});
+
+bot.dialog('debug', (session, args) => {
+  let msg = session.message;
+  session.send(msg);
 });
 
 bot.dialog('default', (session, args) => {

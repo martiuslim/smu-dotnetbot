@@ -38,7 +38,7 @@ bot.dialog('/', (session) => {
 
     case '/me':
     case '/me@smumspbot': {
-      (session.message.source === 'telegram' && session.message.sourceEvent.chat.type !== 'private') ? session.endDialog("Hi! Please use this command in a private chat with me %s", emoji.get('speak_no_evil')) :  session.beginDialog('me');
+      (session.message.source === 'telegram' && session.message.sourceEvent.message.chat.type !== 'private') ? session.endDialog("Hi! Please use this command in a private chat with me %s", emoji.get('speak_no_evil')) :  session.beginDialog('me');
       break;
     }
 

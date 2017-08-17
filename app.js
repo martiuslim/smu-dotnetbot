@@ -76,6 +76,7 @@ bot.dialog('/', (session) => {
 
     case '/debug': {
       session.beginDialog('debug');
+      break;
     }
 
     default: {
@@ -192,7 +193,7 @@ bot.dialog('help', (session, args) => {
 });
 
 bot.dialog('debug', (session, args) => {
-  let msg = session.message;
+  let msg = session.message.chat_id;
   session.send(msg);
 });
 

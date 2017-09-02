@@ -4,7 +4,7 @@
   "description": "A bot created for SMU DotNet Society by SMU MSPs",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js",
     "dev": "nodemon --debug-brk app.js"
   },
   "author": "Martius",
@@ -15,5 +15,13 @@
     "express": "^4.15.4",
     "firebase": "^4.2.0",
     "node-emoji": "^1.8.1"
+  },
+  "engines": {
+    "node": "6.11.2"
+  },
+  "devDependencies": {
+    "eslint": "^4.5.0",
+    "eslint-config-airbnb-base": "^11.3.2",
+    "eslint-plugin-import": "^2.7.0"
   }
 }

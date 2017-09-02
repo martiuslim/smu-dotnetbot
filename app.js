@@ -102,7 +102,7 @@ bot.dialog('me', [
         session.userData.name,
         session.userData.email,
         session.userData.faculty,
-        session.userData.yearOfStudy,
+        session.userData.yearOfStudy
       );
       builder.Prompts.confirm(session, "Would you like to change your details?  \n(Reply with 'yes' or 'no')");
     }
@@ -136,7 +136,7 @@ bot.dialog('profile', [
       session.userData.name,
       session.userData.email,
       session.userData.faculty,
-      session.userData.yearOfStudy,
+      session.userData.yearOfStudy
     );
     session.endDialog('Ping me again if I got your details wrongly %s', emoji.get('innocent'));
   },
@@ -187,13 +187,13 @@ bot.dialog('help', (session, args) => {
     '/me (help me get to know you better, but please only use this in a private chat with me!)',
     '/about (learn more about me and how you can help make me better!)',
     '/dotnet (learn more about DotNet Society and our SMU Microsoft Student Community!)',
-    `/fortunecookie (get your fortune.. after I eat your cookie ${emoji.get('smiling_imp')})`,
+    `/fortunecookie (get your fortune.. after I eat your cookie ${emoji.get('smiling_imp')})`
     // '/games (play some simple games with me!)'
   );
 });
 
 bot.dialog('debug', (session, args) => {
-  session.send('=== Debug Started ===')
+  session.send('=== Debug Started ===');
   const msg = session.message;
   const userdata = session.userData;
   const state = session.sessionState;
@@ -265,6 +265,6 @@ function writeUserData(userId, name, email, faculty, yearOfStudy) {
     name,
     email,
     faculty,
-    yearofStudy,
+    yearOfStudy
   });
 }

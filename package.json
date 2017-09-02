@@ -16,6 +16,9 @@
     "firebase": "^4.2.0",
     "node-emoji": "^1.8.1"
   },
+  "engines": {
+    "node": "6.11.2"
+  },
   "devDependencies": {
     "eslint": "^4.5.0",
     "eslint-config-airbnb-base": "^11.3.2",

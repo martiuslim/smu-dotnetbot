@@ -1,27 +1,21 @@
-require('dotenv').config();
 const builder = require('botbuilder');
 const emoji = require('node-emoji');
 const express = require('express');
 const firebase = require('firebase');
+const config = require('./config');
 
-const config = {
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  databaseURL: process.env.DATABASE_URL,
-  storageBucket: process.env.STORAGE_BUCKET,
-};
 const connector = new builder.ChatConnector({
-  appId: process.env.MICROSOFT_APP_ID,
-  appPassword: process.env.MICROSOFT_APP_PASSWORD,
+  appId: config.appId,
+  appPassword: config.appPassword,
 });
 
-firebase.initializeApp(config);
+firebase.initializeApp(config.firebase);
 const app = express();
 const db = firebase.database();
 
 // Setup bot connector and server
 app.listen(process.env.PORT, function () {
-  console.log('%s started and listening on port %s..', 'mspbot', this.address().port);
+  console.log('%s started and listening on port %s..', 'DotNetBot', this.address().port);
 });
 app.post('/api/messages', connector.listen());
 
@@ -214,7 +208,7 @@ bot.on('conversationUpdate', (message) => {
     const membersAdded = message.membersAdded
       .map((m) => {
         const isSelf = m.id === message.address.bot.id;
-        return (isSelf ? message.address.bot.name : m.name) || `${'' + ' (Id: '}${m.id})`;
+        return (isSelf ? message.address.bot.name : m.name) || `${' (Id: '}${m.id})`;
       })
       .join(', ');
 
@@ -227,7 +221,7 @@ bot.on('conversationUpdate', (message) => {
     const membersRemoved = message.membersRemoved
       .map((m) => {
         const isSelf = m.id === message.address.bot.id;
-        return (isSelf ? message.address.bot.name : m.name) || `${'' + ' (Id: '}${m.id})`;
+        return (isSelf ? message.address.bot.name : m.name) || `${' (Id: '}${m.id})`;
       })
       .join(', ');
 

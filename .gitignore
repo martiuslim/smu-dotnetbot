@@ -55,7 +55,10 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+*.env
 
 # vscode config files
 .vscode
+
+# Mac Finder's Folder arrangement
+.DS_Store
